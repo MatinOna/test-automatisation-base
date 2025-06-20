@@ -1,5 +1,5 @@
 @SEGCD-001
-Feature: Character CRUD
+Feature: Character complete CRUD
 
   Background:
     * configure ssl = true
