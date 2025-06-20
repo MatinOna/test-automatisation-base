@@ -71,7 +71,7 @@ Feature: Character complete CRUD
 
   @id:8
   Scenario: Update character not found
-    * def characterId = 10000
+    * def characterId = 100000
     * def urlUpdateCharacter = karate.get('urlBaseId')(characterId)
     Given url urlUpdateCharacter
     And def entrada = read('classpath:../data/updatedCharacter.json')
