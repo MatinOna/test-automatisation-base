@@ -35,7 +35,7 @@ Feature: Character complete CRUD
 
     Examples:
       | nombre       |
-      | newName|
+      | newNamdddddeop|
 
   @id:5
   Scenario: Create a repeat character
