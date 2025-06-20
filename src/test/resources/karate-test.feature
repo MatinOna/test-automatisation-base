@@ -12,7 +12,7 @@ Feature: Character complete CRUD
 
   @id:2
   Scenario: Check the acquisition of the characters for ID
-    * def urlGetCharacterById = karate.get('urlBaseId')(1)
+    * def urlGetCharacterById = karate.get('urlBaseId')(21)
     Given url urlGetCharacterById
     When method get
     Then status 200
@@ -35,7 +35,7 @@ Feature: Character complete CRUD
 
     Examples:
       | nombre       |
-      | put-new-name-007d104|
+      | newName|
 
   @id:5
   Scenario: Create a repeat character
@@ -56,7 +56,7 @@ Feature: Character complete CRUD
 
   @id:7
   Scenario: Update character
-    * def characterId = 1
+    * def characterId = 21
     * def urlUpdateCharacter = karate.get('urlBaseId')(characterId)
     Given url urlUpdateCharacter
     And def entrada = read('classpath:../data/updatedCharacter.json')
@@ -80,15 +80,24 @@ Feature: Character complete CRUD
     Then status 404
     And match response.error == 'Character not found'
 
-  @id:3 @ignore
-  Scenario: Delete a character by ID
-    Given url urlDeleteCharacterById
-    When method delete
+  @id:9
+  Scenario: Delete the last added character
+    Given url urlBase
+    When method get
     Then status 200
+    * def lastIndex = response.length - 1
+    * def lastId = response[lastIndex].id
+    * print 'Last character ID: ' + lastId
+    * def urlDeleteCharacter = karate.get('urlBaseId')(lastId)
+    Given url urlDeleteCharacter
+    When method delete
+    Then status 204
 
-  @id:5 @ignore
-  Scenario: Error al crear personaje con nombre duplicado
-    Given url urlCreateCharacter
-    And def entrada = read('classpath:../data/createCharacter.json')
-    When method post
-    Then status 400
+  @id:10
+  Scenario: Delete character not found
+    * def characterId = 999999
+    * def urlDeleteCharacter = karate.get('urlBaseId')(characterId)
+    Given url urlDeleteCharacter
+    When method delete
+    Then status 404
+    And match response.error == 'Character not found'
