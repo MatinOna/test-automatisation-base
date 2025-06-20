@@ -1,0 +1,9 @@
+{
+  "name": "Iron Man",
+  "alterego": "Bruce Banner",
+  "description": "Green giant",
+  "powers": [
+    "Strength",
+    "Regeneration"
+  ]
+}
