@@ -5,13 +5,13 @@ Feature: Character complete CRUD
     * configure ssl = true
 
   @id:1
-  Scenario: Check the acquisition of the characters
+  Scenario: T-API-SEGCD-0001-Check the acquisition of the characters
     Given url urlBase
     When method get
     Then status 200
 
   @id:2
-  Scenario: Check the acquisition of the characters for ID
+  Scenario: T-API-SEGCD-0001-Check the acquisition of the characters for ID
     * def urlGetCharacterById = karate.get('urlBaseId')(21)
     Given url urlGetCharacterById
     When method get
@@ -20,14 +20,14 @@ Feature: Character complete CRUD
     And match response.alterego == "Tony Stark"
 
   @id:3
-  Scenario: Check the acquisition of the characters for ID not found
+  Scenario: T-API-SEGCD-0001-Check the acquisition of the characters for ID not found
     * def urlGetCharacterById = karate.get('urlBaseId')(1000)
     Given url urlGetCharacterById
     When method get
     Then status 404
 
   @id:4
-  Scenario Outline: Create new character with different names
+  Scenario Outline: T-API-SEGCD-0001-Create new character with different names
     Given url urlBase
     And request { name: '<nombre>', alterego: 'Tony Stark', description: 'Genius billionaire', powers: ['Armor', 'Flight'] }
     When method post
@@ -38,7 +38,7 @@ Feature: Character complete CRUD
       | newNamdddddeop|
 
   @id:5
-  Scenario: Create a repeat character
+  Scenario: T-API-SEGCD-0001-Create a repeat character
     Given url urlBase
     And def entrada = read('classpath:../data/createCharacter.json')
     And request entrada
@@ -46,7 +46,7 @@ Feature: Character complete CRUD
     Then status 400
 
   @id:6
-  Scenario: Create a empty character
+  Scenario: T-API-SEGCD-0001-Create a empty character
     Given url urlBase
     And def entrada = read('classpath:../data/emptyCharacter.json')
     And request entrada
@@ -55,7 +55,7 @@ Feature: Character complete CRUD
     And match response.name == "Name is required"
 
   @id:7
-  Scenario: Update character
+  Scenario: T-API-SEGCD-0001-Update character
     * def characterId = 21
     * def urlUpdateCharacter = karate.get('urlBaseId')(characterId)
     Given url urlUpdateCharacter
@@ -70,7 +70,7 @@ Feature: Character complete CRUD
     And match response.powers contains 'Flight'
 
   @id:8
-  Scenario: Update character not found
+  Scenario: T-API-SEGCD-0001-Update character not found
     * def characterId = 100000
     * def urlUpdateCharacter = karate.get('urlBaseId')(characterId)
     Given url urlUpdateCharacter
@@ -81,7 +81,7 @@ Feature: Character complete CRUD
     And match response.error == 'Character not found'
 
   @id:9
-  Scenario: Delete the last added character
+  Scenario: T-API-SEGCD-0001-Delete the last added character
     Given url urlBase
     When method get
     Then status 200
@@ -94,7 +94,7 @@ Feature: Character complete CRUD
     Then status 204
 
   @id:10
-  Scenario: Delete character not found
+  Scenario: T-API-SEGCD-0001-Delete character not found
     * def characterId = 999999
     * def urlDeleteCharacter = karate.get('urlBaseId')(characterId)
     Given url urlDeleteCharacter
